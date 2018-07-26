@@ -1,0 +1,27 @@
+server:
+  port: 81
+mybatis:
+    type-aliases-package: com.limitip.make.pojo
+    mapper-locations: classpath:com/limitip/make/mapper/*.xml
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    username:
+    password:
+    url: jdbc:mysql://:3306/test_saveMovie?characterEncoding=UTF-8
+  jackson:
+    date-format: yyyy-MM-dd'T'HH:mm:ss.SSS'Z'
+    time-zone: GMT+8
+#SpringMvc
+  mvc:
+    view:
+      prefix: /
+      suffix: .do
+endpoint:
+  shutdown:
+    enabled: true
+logging:
+  file: log/spring-log.log
+  level.root: error
+
+

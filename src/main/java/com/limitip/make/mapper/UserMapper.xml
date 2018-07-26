@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.limitip.make.mapper.UserMapper">
+    <!--增加员工-->
+    <insert id="addUser" parameterType="com.limitip.make.pojo.User">
+        insert into user(username, userpsd, sex, phone)
+        values(#{userName},#{userPsd},#{sex},#{phone})
+    </insert>
+
+    <select id="findByUserNameAndPsd" resultType="com.limitip.make.pojo.User" parameterType="com.limitip.make.pojo.User">
+        SELECT * FROM  user WHERE username = #{userName} AND  userPsd = #{userPsd}
+    </select>
+
+    <select id="findAllUser" resultType="com.limitip.make.pojo.User">
+        SELECT * FROM user
+    </select>
+
+    <select id="findByUserName" resultType="com.limitip.make.pojo.User">
+        SELECT  * FROM  user WHERE username = #{userName}
+    </select>
+</mapper>

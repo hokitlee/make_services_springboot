@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.limitip.make.mapper.DoubanMovieMapper">
+  <resultMap id="BaseResultMap" type="com.limitip.make.pojo.DoubanMovie">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="movieId" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="status" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="userId" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="title" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="subtype" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="year" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="images" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="genres" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, movieId, status, userId, title, subtype, year, images, genres
+  </sql>
+  <select id="selectByExample" parameterType="com.limitip.make.pojo.DoubanMovieExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from DoubanMovie
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from DoubanMovie
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from DoubanMovie
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.limitip.make.pojo.DoubanMovieExample">
+    delete from DoubanMovie
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.limitip.make.pojo.DoubanMovie">
+    insert into DoubanMovie (id, movieId, status, 
+      userId, title, subtype, 
+      year, images, genres
+      )
+    values (#{id,jdbcType=INTEGER}, #{movieid,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
+      #{userid,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{subtype,jdbcType=VARCHAR}, 
+      #{year,jdbcType=VARCHAR}, #{images,jdbcType=VARCHAR}, #{genres,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.limitip.make.pojo.DoubanMovie">
+    insert into DoubanMovie
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="movieid != null">
+        movieId,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="userid != null">
+        userId,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="subtype != null">
+        subtype,
+      </if>
+      <if test="year != null">
+        year,
+      </if>
+      <if test="images != null">
+        images,
+      </if>
+      <if test="genres != null">
+        genres,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="movieid != null">
+        #{movieid,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="subtype != null">
+        #{subtype,jdbcType=VARCHAR},
+      </if>
+      <if test="year != null">
+        #{year,jdbcType=VARCHAR},
+      </if>
+      <if test="images != null">
+        #{images,jdbcType=VARCHAR},
+      </if>
+      <if test="genres != null">
+        #{genres,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.limitip.make.pojo.DoubanMovieExample" resultType="java.lang.Long">
+    select count(*) from DoubanMovie
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update DoubanMovie
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.movieid != null">
+        movieId = #{record.movieid,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.userid != null">
+        userId = #{record.userid,jdbcType=INTEGER},
+      </if>
+      <if test="record.title != null">
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subtype != null">
+        subtype = #{record.subtype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.year != null">
+        year = #{record.year,jdbcType=VARCHAR},
+      </if>
+      <if test="record.images != null">
+        images = #{record.images,jdbcType=VARCHAR},
+      </if>
+      <if test="record.genres != null">
+        genres = #{record.genres,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update DoubanMovie
+    set id = #{record.id,jdbcType=INTEGER},
+      movieId = #{record.movieid,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      userId = #{record.userid,jdbcType=INTEGER},
+      title = #{record.title,jdbcType=VARCHAR},
+      subtype = #{record.subtype,jdbcType=VARCHAR},
+      year = #{record.year,jdbcType=VARCHAR},
+      images = #{record.images,jdbcType=VARCHAR},
+      genres = #{record.genres,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.limitip.make.pojo.DoubanMovie">
+    update DoubanMovie
+    <set>
+      <if test="movieid != null">
+        movieId = #{movieid,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null">
+        userId = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="subtype != null">
+        subtype = #{subtype,jdbcType=VARCHAR},
+      </if>
+      <if test="year != null">
+        year = #{year,jdbcType=VARCHAR},
+      </if>
+      <if test="images != null">
+        images = #{images,jdbcType=VARCHAR},
+      </if>
+      <if test="genres != null">
+        genres = #{genres,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.limitip.make.pojo.DoubanMovie">
+    update DoubanMovie
+    set movieId = #{movieid,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      userId = #{userid,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      subtype = #{subtype,jdbcType=VARCHAR},
+      year = #{year,jdbcType=VARCHAR},
+      images = #{images,jdbcType=VARCHAR},
+      genres = #{genres,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

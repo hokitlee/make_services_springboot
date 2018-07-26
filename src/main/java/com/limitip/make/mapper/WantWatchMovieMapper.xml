@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.limitip.make.mapper.WantWatchMovieMapper">
+
+    <insert id="addMovie" parameterType="com.limitip.make.pojo.Movie">
+        insert into wantWatchMovies(movieName, movieType,userId)
+        values(#{movieName},#{movieType},#{userId})
+    </insert>
+
+    <delete id="deleteMovie" parameterType="com.limitip.make.pojo.Movie">
+        DELETE FROM wantWatchMovies WHERE movieName = #{movieName} AND userId = #{userId}
+    </delete>
+
+
+    <select id="findWantWatchMovie" parameterType="com.limitip.make.pojo.Movie" resultType="com.limitip.make.pojo.Movie">
+        SELECT * FROM wantWatchMovies
+        <where>
+            <if test="movieName != null and movieName != ''">
+                AND movieName like '%${movieName}%'
+            </if>
+            <if test="movieType != null and movieType != ''">
+                AND movieType like '%${movieType}%'
+            </if>
+            AND userId = #{userId}
+        </where>
+    </select>
+</mapper>
